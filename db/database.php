@@ -9,7 +9,16 @@ class Database {
     private $params = [];
     private $response = null;
 
-    function __contruct() {
+    function __construct() {
+
+        if (
+            !defined("DB_HOST")
+            || !defined("DB_USERNAME")
+            || !defined("DB_PASSWORD")
+            || !defined("DB_DBNAME")
+        ) {
+            throw new Exception("Failed to connect to MySQL: invalid session constants", 1);
+        }
 
         $this->connector = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DBNAME);
 
@@ -34,22 +43,46 @@ class Database {
         return $this->params;
     }
 
-    function query():void {
+    function query(): bool {
 
         $statement = $this->connector->prepare($this->sql);
 
-        foreach ($this->params as $param) {
-            $statement->bind_param($param["type"], $param["value"]);
+        if (!empty($this->params)) {
+            $params = $this->parseParams();
+            $statement->bind_param($params["types"], ...$params["values"]);
         }
 
-        $statement->execute();
+        $result = $statement->execute();
 
         $this->response = $statement->get_result();
 
         $statement->close();
+
+        return $result;
     }
 
-    function getRow(): array {
+    private function parseParams(): array {
+
+        $parse = [
+            "types" => "",
+            "values" => []
+        ];
+
+        foreach ($this->params as $param) {
+            $parse["types"] .= $param["type"];
+            $parse["values"][] = $param["value"];
+        }
+
+        return $parse;
+    }
+
+    function getRow() {
         return $this->response->fetch_assoc();
+    }
+
+    function reset() {
+        $this->sql = "";
+        $this->params = [];
+        $this->response = null;
     }
 }
