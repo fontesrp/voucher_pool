@@ -2,12 +2,10 @@
 A voucher pool micro-service based in PHP
 
 ## Environment
-Oracle Linux Server 7.4
+Amazon Linux AMI 2017.09
 
-Apache 2.4.25
+Apache 2.4.27
 
-PHP 5.6.31
+PHP 7.0.27
 
-Zend Engine 2.6.0
-
-MySQL Ver 14.14 Distrib 5.7.21
+MySQL Ver 14.14 Distrib 5.6.38
