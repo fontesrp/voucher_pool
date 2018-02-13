@@ -1,0 +1,7 @@
+CREATE TABLE special_offers (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+    discount FLOAT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP
+);
