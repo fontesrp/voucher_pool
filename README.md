@@ -1,4 +1,4 @@
-# voucher_pool
+# Voucher Pool
 A voucher pool micro-service based in PHP
 
 ## Environment
