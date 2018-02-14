@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . "/../db/database.php"
-
 declare(strict_types=1);
+
+require_once __DIR__ . "/../db/database.php";
 
 class SpecialOffer {
 
