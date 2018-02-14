@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
-define("SESSION", "/var/www/html/voucher_pool/config/session.php");
+define("SESSION", __DIR__ . "/../../config/session.php");
 
 final class DatabaseTest extends TestCase {
 
