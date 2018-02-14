@@ -28,7 +28,11 @@ class VouchersController {
     }
 
     function show() {
-        print "Voucher show";
+
+        $report = $this->voucher->report();
+        $vouchers = $this->voucher->first(10);
+
+        require_once __DIR__ . "/../views/vouchers/show.php";
     }
 
     function update() {

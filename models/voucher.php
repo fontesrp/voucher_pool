@@ -167,4 +167,64 @@ class Voucher {
     function getId(): int {
         return $this->id;
     }
+
+    function report(): array {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT
+                COUNT(1) AS total,
+                SUM(CASE WHEN used_at IS NULL OR used_at = '' THEN 1 ELSE 0 END) AS unused
+            FROM vouchers");
+
+        $this->db->query();
+
+        $report = [
+            "generated" => 0,
+            "unused" => 0,
+            "used" => 0
+        ];
+
+        if ($row = $this->db->getRow()) {
+            $report["generated"] = (int) $row["total"];
+            $report["unused"] = (int) $row["unused"];
+            $report["used"] = $report["generated"] - $report["used"];
+        }
+
+        return $report;
+    }
+
+    function first(int $limit = 0, int $offset = 0): array {
+
+        $sql = "SELECT
+                id,
+                recipient_id,
+                special_offer_id,
+                code,
+                expiration_date,
+                used_at,
+                created_at,
+                updated_at
+            FROM vouchers";
+
+        $params = [];
+
+        if ($limit !== 0) {
+            $sql .= " LIMIT ?, ?";
+            $params = [
+                ["type" => "i", "value" => $offset],
+                ["type" => "i", "value" => $limit]
+            ];
+        }
+
+        $this->db->clear();
+
+        $this->db->setSql($sql);
+
+        $this->db->setParams($params);
+
+        $this->db->query();
+
+        return $this->db->getAll();
+    }
 }
