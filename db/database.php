@@ -85,4 +85,8 @@ class Database {
         $this->params = [];
         $this->response = null;
     }
+
+    function getInsertId(): int {
+        return $this->connector->insert_id;
+    }
 }
