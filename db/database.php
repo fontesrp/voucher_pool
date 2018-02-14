@@ -27,6 +27,12 @@ class Database {
         }
     }
 
+    function clear() {
+        $this->sql = "";
+        $this->params = [];
+        $this->response = null;
+    }
+
     function setSql(string $sql): void {
         $this->sql = $sql;
     }
@@ -78,6 +84,10 @@ class Database {
 
     function getRow() {
         return $this->response->fetch_assoc();
+    }
+
+    function getAll(): array {
+        return $this->response->fetch_all(MYSQLI_ASSOC);
     }
 
     function reset() {
