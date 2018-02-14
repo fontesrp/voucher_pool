@@ -6,7 +6,7 @@ function call_voucher_method($name) {
 
     $voucher = new VouchersController();
 
-    call_user_method([$voucher, $name]);
+    call_user_func([$voucher, $name]);
 }
 
 function vouchers_path($method) {

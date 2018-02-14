@@ -61,7 +61,7 @@ function clean_uri() {
     $uri = substr($uri, 1);
 
     // `?query`
-    $query = "?" . $_SEREVR["QUERY_STRING"];
+    $query = "?" . $_SERVER["QUERY_STRING"];
 
     // `my/path`
     $uri = str_replace($query, "", $uri);
