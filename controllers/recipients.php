@@ -38,4 +38,8 @@ class RecipientsController {
     function delete() {
         print "Recipient delete";
     }
+
+    function search() {
+        print json_encode($this->recipient->searchByEmail($_GET["term"]));
+    }
 }

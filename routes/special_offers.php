@@ -55,3 +55,12 @@ function destroy_special_offer_path($method) {
 
     call_special_offer_method($routes[$method]);
 }
+
+function search_special_offers_path($method) {
+
+    $routes = [
+        "GET" => "search"
+    ];
+
+    call_special_offer_method($routes[$method]);
+}

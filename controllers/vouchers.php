@@ -3,6 +3,8 @@
 require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../db/database.php";
 require_once __DIR__ . "/../models/voucher.php";
+require_once __DIR__ . "/../helpers/views.php";
+require_once __DIR__ . "/../helpers/random_string.php";
 
 class VouchersController {
 
@@ -41,5 +43,14 @@ class VouchersController {
 
     function delete() {
         print "Voucher delete";
+    }
+
+    function genCode() {
+
+        do {
+            $code = random_str(8);
+        } while ($this->voucher->find($code));
+
+        print json_encode(["code" => $code]);
     }
 }

@@ -38,4 +38,8 @@ class SpecialOffersController {
     function delete() {
         print "Special Offer delete";
     }
+
+    function search() {
+        print json_encode($this->special_offer->searchByName($_GET["term"]));
+    }
 }

@@ -127,4 +127,19 @@ class SpecialOffer {
     function getId(): int {
         return $this->id;
     }
+
+    function searchByName(string $name): array {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT id, name, discount FROM special_offers WHERE name LIKE ?");
+
+        $this->db->setParams([
+            ["type" => "s", "value" => "%" . $name . "%"]
+        ]);
+
+        $this->db->query();
+
+        return $this->db->getAll();
+    }
 }

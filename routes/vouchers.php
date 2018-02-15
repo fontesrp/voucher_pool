@@ -55,3 +55,12 @@ function destroy_voucher_path($method) {
 
     call_voucher_method($routes[$method]);
 }
+
+function gen_voucher_code_path($method) {
+
+    $routes = [
+        "GET" => "genCode"
+    ];
+
+    call_voucher_method($routes[$method]);
+}

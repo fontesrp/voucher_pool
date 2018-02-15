@@ -55,3 +55,12 @@ function destroy_recipient_path($method) {
 
     call_recipient_method($routes[$method]);
 }
+
+function search_recipients_path($method) {
+
+    $routes = [
+        "GET" => "search"
+    ];
+
+    call_recipient_method($routes[$method]);
+}

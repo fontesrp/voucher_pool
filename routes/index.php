@@ -18,21 +18,24 @@ $routes = [
             "new" => "new_recipient_path",
             "show" => "show_recipient_path",
             "update" => "update_recipient_path",
-            "destroy" => "destroy_recipient_path"
+            "destroy" => "destroy_recipient_path",
+            "search" => "search_recipients_path"
         ],
         "special_offers" => [
             "index" => "special_offers_path",
             "new" => "new_special_offer_path",
             "show" => "show_special_offer_path",
             "update" => "update_special_offer_path",
-            "destroy" => "destroy_special_offer_path"
+            "destroy" => "destroy_special_offer_path",
+            "search" => "search_special_offers_path"
         ],
         "vouchers" => [
             "index" => "vouchers_path",
             "new" => "new_voucher_path",
             "show" => "show_voucher_path",
             "update" => "update_voucher_path",
-            "destroy" => "destroy_voucher_path"
+            "destroy" => "destroy_voucher_path",
+            "code_gen" => "gen_voucher_code_path"
         ]
     ]
 ];

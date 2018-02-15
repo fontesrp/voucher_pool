@@ -127,4 +127,19 @@ class Recipient {
     function getId(): int {
         return $this->id;
     }
+
+    function searchByEmail(string $email): array {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT id, email FROM recipients WHERE email LIKE ?");
+
+        $this->db->setParams([
+            ["type" => "s", "value" => "%" . $email . "%"]
+        ]);
+
+        $this->db->query();
+
+        return $this->db->getAll();
+    }
 }
