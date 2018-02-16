@@ -1,23 +1,10 @@
-<div class="modal fade" id="add-voucher-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+<?php
 
-            <div class="modal-header">
-                <h5 class="modal-title">Add voucher</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
+$modal_props = [
+    "id" => "add-voucher",
+    "title" => "Add voucher",
+    "body" => "vouchers/new.php",
+    "save" => "Save"
+];
 
-            <div class="modal-body">
-                <?php require_once request_view("vouchers/new.php"); ?>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="add-voucher-modal-close">Close</button>
-                <button type="button" class="btn btn-primary" id="add-voucher-modal-save">Save</button>
-            </div>
-
-        </div>
-    </div>
-</div>
+require request_view("fractals/modal.php");
