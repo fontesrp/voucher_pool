@@ -5,6 +5,8 @@ $(document).ready(function () {
     setupNewVoucherModal();
     setupUpdateVoucherModal();
     setupNewRecipientModal();
+    setupNewSpecialOfferModal();
+    setupGenVouchersModal();
 
     showVouchers(true);
 });

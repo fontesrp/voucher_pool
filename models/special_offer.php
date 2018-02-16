@@ -7,6 +7,7 @@ require_once __DIR__ . "/../db/database.php";
 class SpecialOffer {
 
     private $db;
+    private $errors = [];
 
     private $id = 0;
     private $name = "";
@@ -76,6 +77,7 @@ class SpecialOffer {
         $this->db->query();
 
         $this->id = $this->db->getInsertId();
+        $this->errors = $this->db->getErrors();
 
         return $this->id;
     }
@@ -126,6 +128,10 @@ class SpecialOffer {
 
     function getId(): int {
         return $this->id;
+    }
+
+    function getErrors(): array {
+        return $this->errors;
     }
 
     function searchByName(string $name): array {

@@ -75,6 +75,8 @@ function include_application(): string {
         "js/newVoucherModal.js",
         "js/updateVoucherModal.js",
         "js/newRecipientModal.js",
+        "js/newSpecialOfferModal.js",
+        "js/genVouchersModal.js",
         "js/showVouchers.js",
         "js/application.js"
     ]);

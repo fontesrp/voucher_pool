@@ -26,7 +26,7 @@ const setupNewRecipientModal = function (open) {
 
                     const err = data.error.reduce((str, e) => `${str} [${e.errno}] ${e.sqlstate}: ${e.error}`, "");
 
-                    alert("There were errors updating some vouchers:\n" + err);
+                    alert("There was en error creating the recipient:\n" + err);
 
                     return;
                 }
@@ -40,7 +40,7 @@ const setupNewRecipientModal = function (open) {
                 closeModal();
 
             }).catch(function () {
-                console.error("updateVoucherModal.js setupSave: request failed");
+                console.error("newRecipientModal.js setupSave: request failed");
                 console.error(arguments);
             });
         });

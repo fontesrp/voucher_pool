@@ -36,7 +36,10 @@ $routes = [
             "update" => "update_voucher_path",
             "destroy" => "destroy_voucher_path",
             "code_gen" => "gen_voucher_code_path",
-            "report" => "vouchers_report_path"
+            "report" => "vouchers_report_path",
+            "gen" => "vouchers_gen_path",
+            "validate" => "voucher_validate_path",
+            "search" => "vouchers_search_path"
         ]
     ]
 ];

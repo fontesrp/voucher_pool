@@ -4,9 +4,13 @@ const showVouchers = function (init) {
 
     "use strict";
 
-    const genVouchers = function () {};
+    const genVouchers = function () {
+        setupGenVouchersModal(true);
+    };
 
-    const newSO = function () {};
+    const newSO = function () {
+        setupNewSpecialOfferModal(true);
+    };
 
     const newRecipient = function () {
         setupNewRecipientModal(true);

@@ -18,6 +18,8 @@
         <?php require request_view("vouchers/new_modal.php"); ?>
         <?php require request_view("vouchers/update_modal.php"); ?>
         <?php require request_view("recipients/new_modal.php"); ?>
+        <?php require request_view("special_offers/new_modal.php"); ?>
+        <?php require request_view("vouchers/gen_modal.php"); ?>
 
         <div class="jumbotron bg-white m-3">
 

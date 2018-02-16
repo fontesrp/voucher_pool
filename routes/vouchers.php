@@ -73,3 +73,30 @@ function vouchers_report_path($method) {
 
     call_voucher_method($routes[$method]);
 }
+
+function vouchers_gen_path($method) {
+
+    $routes = [
+        "POST" => "generate"
+    ];
+
+    call_voucher_method($routes[$method]);
+}
+
+function voucher_validate_path($method) {
+
+    $routes = [
+        "PATCH" => "validate"
+    ];
+
+    call_voucher_method($routes[$method]);
+}
+
+function vouchers_search_path($method) {
+
+    $routes = [
+        "GET" => "searchByEmail"
+    ];
+
+    call_voucher_method($routes[$method]);
+}

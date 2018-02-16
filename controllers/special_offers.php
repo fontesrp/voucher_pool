@@ -20,7 +20,19 @@ class SpecialOffersController {
     }
 
     function create() {
-        print "Special Offer create";
+
+        $this->special_offer->create([
+            "name" => $_POST["name"],
+            "discount" => $_POST["discount"]
+        ]);
+
+        $id = $this->special_offer->getId();
+
+        $response = ($id > 0)
+            ? ["id" => $id]
+            : ["error" => $this->special_offer->getErrors()];
+
+        print json_encode($response);
     }
 
     function new_form() {

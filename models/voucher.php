@@ -270,7 +270,55 @@ class Voucher {
                 vouchers vou
                 INNER JOIN recipients rec ON vou.recipient_id = rec.id
             ORDER BY
-                vou.created_at");
+                vou.created_at DESC");
+
+        $this->db->query();
+
+        return $this->db->getAll();
+    }
+
+    function findByCodeAndEmail(string $code, string $email) {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT
+                vou.id,
+                sof.discount
+            FROM
+                vouchers vou
+                INNER JOIN recipients rec ON vou.recipient_id = rec.id
+                INNER JOIN special_offers sof ON vou.special_offer_id = sof.id
+            WHERE
+                vou.code = ?
+                AND rec.email = ?");
+
+        $this->db->setParams([
+            ["type" => "s", "value" => $code],
+            ["type" => "s", "value" => $email]
+        ]);
+
+        $this->db->query();
+
+        return $this->db->getRow();
+    }
+
+    function searchByEmail(string $email): array {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT
+                vou.code,
+                sof.name
+            FROM
+                vouchers vou
+                INNER JOIN recipients rec ON vou.recipient_id = rec.id
+                INNER JOIN special_offers sof ON vou.special_offer_id = sof.id
+            WHERE
+                rec.email = ?");
+
+        $this->db->setParams([
+            ["type" => "s", "value" => $email]
+        ]);
 
         $this->db->query();
 

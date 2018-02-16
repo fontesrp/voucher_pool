@@ -148,4 +148,15 @@ class Recipient {
 
         return $this->db->getAll();
     }
+
+    function all(): array {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT id FROM recipients");
+
+        $this->db->query();
+
+        return $this->db->getAll();
+    }
 }

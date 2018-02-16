@@ -5,6 +5,7 @@ require_once __DIR__ . "/../db/database.php";
 require_once __DIR__ . "/../models/voucher.php";
 require_once __DIR__ . "/../helpers/views.php";
 require_once __DIR__ . "/../helpers/random_string.php";
+require_once __DIR__ . "/../helpers/voucher_gen.php";
 
 class VouchersController {
 
@@ -57,7 +58,7 @@ class VouchersController {
         parse_str(file_get_contents("php://input"), $_PATCH);
 
         $errors = [];
-        $updQtt = 0;
+        $upd_qtt = 0;
 
         foreach (explode(",", $_PATCH["ids"]) as $id) {
 
@@ -68,13 +69,13 @@ class VouchersController {
             ]);
 
             if ($success) {
-                $updQtt++;
+                $upd_qtt++;
             } else {
                 $errors = array_merge($errors, $this->voucher->getErrors());
             }
         }
 
-        $response = ["updated_qtt" => $updQtt];
+        $response = ["updated_qtt" => $upd_qtt];
 
         if (count($errors) !== 0) {
             $response["error"] = $errors;
@@ -87,16 +88,115 @@ class VouchersController {
         print "Voucher delete";
     }
 
-    function genCode() {
+    private function uniqueCode() {
 
         do {
             $code = random_str(8);
         } while ($this->voucher->find($code));
 
-        print json_encode(["code" => $code]);
+        return $code;
+    }
+
+    function genCode() {
+        print json_encode(["code" => $this->uniqueCode()]);
     }
 
     function report() {
         print json_encode($this->voucher->report());
+    }
+
+    function generate() {
+
+        if (!gen_validate()) {
+
+            $response = ["error" => "invalid request"];
+
+            print json_encode($response);
+
+            return;
+        }
+
+        $all_recipients = gen_list_recipients();
+        $so_id = gen_get_special_offer_id();
+
+        if (!($so_id > 0)) {
+
+            $response = ["error" => "invalid special offer"];
+
+            print json_encode($response);
+
+            return;
+        }
+
+        $errors = [];
+        $created_qtt = 0;
+
+        foreach ($all_recipients as $rec) {
+
+            $id = $this->voucher->create([
+                "recipient_id" => $rec["id"],
+                "special_offer_id" => $so_id,
+                "code" => $this->uniqueCode(),
+                "expiration_date" => $_POST["expiration-date"]
+            ]);
+
+            if ($id > 0) {
+                $created_qtt++;
+            } else {
+                $errors = array_merge($errors, $this->voucher->getErrors());
+            }
+        }
+
+        $response = ["created_qtt" => $created_qtt];
+
+        if (count($errors) !== 0) {
+            $response["error"] = $errors;
+        }
+
+        print json_encode($response);
+    }
+
+    function validate() {
+
+        parse_str(file_get_contents("php://input"), $_PATCH);
+
+        if (!array_key_exists("code", $_PATCH) || !array_key_exists("email", $_PATCH)) {
+
+            $response = ["error" => "invalid request"];
+
+            print json_encode($_PATCH);
+
+            return;
+        }
+
+        $result = $this->voucher->findByCodeAndEmail($_PATCH["code"], $_PATCH["email"]);
+
+        if ($result === null) {
+            $response = ["error" => "invalid voucher"];
+        } else {
+
+            $response = ["discount" => $result["discount"]];
+
+            $this->voucher->find("", (int) $result["id"]);
+            $this->voucher->update([
+                "used_at" => gmdate("Y-m-d H:i:s")
+            ]);
+        }
+
+        print json_encode($response);
+    }
+
+    function searchByEmail() {
+
+        if (!array_key_exists("email", $_GET)) {
+
+            $response = ["error" => "invalid request"];
+
+            print json_encode($response);
+
+            return;
+        }
+
+        print json_encode($this->voucher->searchByEmail($_GET["email"]));
     }
 }
