@@ -15,11 +15,11 @@ class RecipientsController {
         $this->recipient = new Recipient($db);
     }
 
-    function index() {
-        print "Recipient index";
+    function index(): void {
+        print json_encode($this->recipient->all());
     }
 
-    function create() {
+    function create(): void {
 
         $this->recipient->create([
             "recipient_name" => $_POST["name"],
@@ -35,23 +35,7 @@ class RecipientsController {
         print json_encode($response);
     }
 
-    function new_form() {
-        print "Recipient new_form";
-    }
-
-    function show() {
-        print "Recipient show";
-    }
-
-    function update() {
-        print "Recipient update";
-    }
-
-    function delete() {
-        print "Recipient delete";
-    }
-
-    function search() {
+    function search(): void {
         print json_encode($this->recipient->searchByEmail($_GET["term"]));
     }
 }

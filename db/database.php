@@ -28,7 +28,7 @@ class Database {
         }
     }
 
-    function clear() {
+    function clear(): void {
         $this->sql = "";
         $this->params = [];
         $this->response = null;
@@ -90,12 +90,6 @@ class Database {
 
     function getAll(): array {
         return $this->response->fetch_all(MYSQLI_ASSOC);
-    }
-
-    function reset() {
-        $this->sql = "";
-        $this->params = [];
-        $this->response = null;
     }
 
     function getInsertId(): int {

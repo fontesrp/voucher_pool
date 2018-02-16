@@ -27,7 +27,7 @@ $root_rec = [
 
 $root_rec["id"] = $recipient->create($root_rec);
 
-print "Created root recipient " . print_r($root_rec, true) . "\n";
+print "Created root recipient\n" . print_r($root_rec, true) . "\n";
 
 // Create 15 recipients
 $created_recs = [$root_rec];
@@ -61,7 +61,7 @@ $root_offer = [
 
 $root_offer["id"] = $special_offer->create($root_offer);
 
-print "Created root special offer " . print_r($root_offer, true) . "\n";
+print "Created root special offer\n" . print_r($root_offer, true) . "\n";
 
 // Create 20 special offers
 $created_offers = [$root_offer];
@@ -97,7 +97,7 @@ $root_voucher = [
 
 $root_voucher["id"] = $voucher->create($root_voucher);
 
-print "Created root voucher " . print_r($root_voucher, true) . "\n";
+print "Created root voucher\n" . print_r($root_voucher, true) . "\n";
 
 // Create at least 50 vouchers
 $created_vou_qtt = 1;
@@ -116,7 +116,7 @@ for ($i = 0; $i < 50; $i++) {
         $vou["code"] = $voucher->uniqueCode();
         $vou["expiration_date"] = $faker->dateTimeBetween("now", "+1 year")->format("Y-m-d");
 
-        if (random_int(0, 1)) {
+        if (random_int(0, 10) > 5) {
             $vou["used_at"] = $faker->date();
         }
 

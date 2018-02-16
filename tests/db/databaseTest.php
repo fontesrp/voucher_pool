@@ -31,7 +31,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanSelectHarcodedValues(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT 123 AS num, 'abc' AS str");
         $db->query();
 
@@ -48,7 +48,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanSelectFromDual(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT 123 AS num, 'abc' AS str FROM DUAL");
         $db->query();
 
@@ -65,7 +65,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanRunPreparedInsert(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("INSERT INTO special_offers (name, discount) VALUES (?, ?)");
         $db->setParams([
             ["type" => "s", "value" => "Random Dude From Starwars"],
@@ -82,7 +82,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanRunPreparedSelect(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT name, discount FROM special_offers WHERE name = ? AND discount > ?");
         $db->setParams([
             ["type" => "s", "value" => "Random Dude From Starwars"],
@@ -103,7 +103,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanRunPreparedUpdate(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("UPDATE special_offers SET name = ?, discount = ? WHERE name = ? AND discount > ?");
         $db->setParams([
             ["type" => "s", "value" => "Another Random Dude"],
@@ -122,7 +122,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testPreparedUpdateWorked(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT name, discount FROM special_offers WHERE name = ? AND discount > ?");
         $db->setParams([
             ["type" => "s", "value" => "Another Random Dude"],
@@ -143,7 +143,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanRunPreparedDelete(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("DELETE FROM special_offers WHERE name = ? AND discount > ?");
         $db->setParams([
             ["type" => "s", "value" => "Another Random Dude"],
@@ -160,7 +160,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testPreparedDeleteWorked(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT name, discount FROM special_offers WHERE name = ? AND discount > ?");
         $db->setParams([
             ["type" => "s", "value" => "Another Random Dude"],
@@ -180,7 +180,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanInsert(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("INSERT INTO special_offers (name, discount) VALUES ('Random Dude From Starwars 2', 12.345)");
 
         $this->assertTrue($db->query());
@@ -193,7 +193,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanSelect(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT name, discount FROM special_offers WHERE name = 'Random Dude From Starwars 2' AND discount > 12");
         $db->query();
 
@@ -210,7 +210,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanUpdate(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("UPDATE special_offers SET name = 'Another Random Dude 2', discount = 543.21 WHERE name = 'Random Dude From Starwars 2' AND discount > 12");
 
         $this->assertTrue($db->query());
@@ -223,7 +223,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testUpdateWorked(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT name, discount FROM special_offers WHERE name = 'Another Random Dude 2' AND discount > 543");
         $db->query();
 
@@ -240,7 +240,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testCanDelete(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("DELETE FROM special_offers WHERE name = 'Another Random Dude 2' AND discount > 543");
 
         $this->assertTrue($db->query());
@@ -253,7 +253,7 @@ final class DatabaseTest extends TestCase {
      */
     public function testDeleteWorked(Database $db) {
 
-        $db->reset();
+        $db->clear();
         $db->setSql("SELECT name, discount FROM special_offers WHERE name = 'Another Random Dude 2' AND discount > 543");
         $db->query();
 

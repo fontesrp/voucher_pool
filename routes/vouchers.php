@@ -2,14 +2,14 @@
 
 require_once __DIR__ . "/../controllers/vouchers.php";
 
-function call_voucher_method($name) {
+function call_voucher_method(string $name): void {
 
     $voucher = new VouchersController();
 
     call_user_func([$voucher, $name]);
 }
 
-function vouchers_path($method) {
+function vouchers_path(string $method): void {
 
     $routes = [
         "GET" => "index",
@@ -19,16 +19,7 @@ function vouchers_path($method) {
     call_voucher_method($routes[$method]);
 }
 
-function new_voucher_path($method) {
-
-    $routes = [
-        "GET" => "new_form"
-    ];
-
-    call_voucher_method($routes[$method]);
-}
-
-function show_voucher_path($method) {
+function show_voucher_path(string $method): void {
 
     $routes = [
         "GET" => "show"
@@ -37,7 +28,7 @@ function show_voucher_path($method) {
     call_voucher_method($routes[$method]);
 }
 
-function update_voucher_path($method) {
+function update_voucher_path(string $method): void {
 
     $routes = [
         "PATCH" => "update",
@@ -47,16 +38,7 @@ function update_voucher_path($method) {
     call_voucher_method($routes[$method]);
 }
 
-function destroy_voucher_path($method) {
-
-    $routes = [
-        "DELETE" => "delete"
-    ];
-
-    call_voucher_method($routes[$method]);
-}
-
-function gen_voucher_code_path($method) {
+function gen_voucher_code_path(string $method): void {
 
     $routes = [
         "GET" => "genCode"
@@ -65,7 +47,7 @@ function gen_voucher_code_path($method) {
     call_voucher_method($routes[$method]);
 }
 
-function vouchers_report_path($method) {
+function vouchers_report_path(string $method): void {
 
     $routes = [
         "GET" => "report"
@@ -74,7 +56,7 @@ function vouchers_report_path($method) {
     call_voucher_method($routes[$method]);
 }
 
-function vouchers_gen_path($method) {
+function vouchers_gen_path(string $method): void {
 
     $routes = [
         "POST" => "generate"
@@ -83,7 +65,7 @@ function vouchers_gen_path($method) {
     call_voucher_method($routes[$method]);
 }
 
-function voucher_validate_path($method) {
+function voucher_validate_path(string $method): void {
 
     $routes = [
         "PATCH" => "validate"
@@ -92,7 +74,7 @@ function voucher_validate_path($method) {
     call_voucher_method($routes[$method]);
 }
 
-function vouchers_search_path($method) {
+function vouchers_search_path(string $method): void {
 
     $routes = [
         "GET" => "searchByEmail"

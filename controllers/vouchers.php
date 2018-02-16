@@ -17,7 +17,7 @@ class VouchersController {
         $this->voucher = new Voucher($db);
     }
 
-    function index() {
+    function index(): void {
 
         $response = (array_key_exists("recipientInfo", $_GET) && $_GET["recipientInfo"] === "true")
             ? $this->voucher->allWithRecipient()
@@ -26,7 +26,7 @@ class VouchersController {
         print json_encode($response);
     }
 
-    function create() {
+    function create(): void {
 
         $this->voucher->create([
             "recipient_id" => $_POST["recipient-id"],
@@ -44,15 +44,11 @@ class VouchersController {
         print json_encode($result);
     }
 
-    function new_form() {
-        print "Voucher new_form";
-    }
-
-    function show() {
+    function show(): void {
         require_once __DIR__ . "/../views/vouchers/show.php";
     }
 
-    function update() {
+    function update(): void {
 
         parse_str(file_get_contents("php://input"), $_PATCH);
 
@@ -83,19 +79,15 @@ class VouchersController {
         print json_encode($response);
     }
 
-    function delete() {
-        print "Voucher delete";
-    }
-
-    function genCode() {
+    function genCode(): void {
         print json_encode(["code" => $this->voucher->uniqueCode()]);
     }
 
-    function report() {
+    function report(): void {
         print json_encode($this->voucher->report());
     }
 
-    function generate() {
+    function generate(): void {
 
         if (!gen_validate()) {
 
@@ -146,7 +138,7 @@ class VouchersController {
         print json_encode($response);
     }
 
-    function validate() {
+    function validate(): void {
 
         parse_str(file_get_contents("php://input"), $_PATCH);
 
@@ -178,7 +170,7 @@ class VouchersController {
         print json_encode($response);
     }
 
-    function searchByEmail() {
+    function searchByEmail(): void {
 
         if (!array_key_exists("email", $_GET)) {
 

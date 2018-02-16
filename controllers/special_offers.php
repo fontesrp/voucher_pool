@@ -15,11 +15,11 @@ class SpecialOffersController {
         $this->special_offer = new SpecialOffer($db);
     }
 
-    function index() {
-        print "Special Offer index";
+    function index(): void {
+        print json_encode($this->special_offer->all());
     }
 
-    function create() {
+    function create(): void {
 
         $this->special_offer->create([
             "name" => $_POST["name"],
@@ -35,23 +35,7 @@ class SpecialOffersController {
         print json_encode($response);
     }
 
-    function new_form() {
-        print "Special Offer new_form";
-    }
-
-    function show() {
-        print "Special Offer show";
-    }
-
-    function update() {
-        print "Special Offer update";
-    }
-
-    function delete() {
-        print "Special Offer delete";
-    }
-
-    function search() {
+    function search(): void {
         print json_encode($this->special_offer->searchByName($_GET["term"]));
     }
 }

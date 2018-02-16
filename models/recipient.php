@@ -153,7 +153,7 @@ class Recipient {
 
         $this->db->clear();
 
-        $this->db->setSql("SELECT id FROM recipients");
+        $this->db->setSql("SELECT id, recipient_name, email FROM recipients");
 
         $this->db->query();
 

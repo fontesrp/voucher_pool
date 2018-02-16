@@ -157,4 +157,15 @@ class SpecialOffer {
 
         return $this->db->query();
     }
+
+    function all(): array {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT id, name, discount FROM special_offers");
+
+        $this->db->query();
+
+        return $this->db->getAll();
+    }
 }
