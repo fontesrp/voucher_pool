@@ -1,18 +1,22 @@
 <?php
 
+function request_absolute(string $path): string {
+    return "/voucher_pool/" . $path;
+}
+
 function request_public(string $path): string {
-    return "/voucher_pool/public/" . $path;
+    return request_absolute("public/" . $path);
+}
+
+function request_vendor(string $path): string {
+    return request_absolute("vendor/" . $path);
 }
 
 function request_view(string $path): string {
     return __DIR__ . "/../views/" . $path;
 }
 
-function request_absolute(string $path): string {
-    return "/voucher_pool/" . $path;
-}
-
-function generate_request(string $file): string {
+function generate_request(string $file, bool $vendor = false): string {
 
     $tag = [
         "css" => "<link rel='stylesheet' type='text/css' href='FILE_PLACEHOLDER'>",
@@ -21,15 +25,19 @@ function generate_request(string $file): string {
 
     $type = substr($file, strrpos($file, ".") + 1);
 
-    return str_replace("FILE_PLACEHOLDER", request_public($file), $tag[$type]);
+    $path = ($vendor)
+        ? request_vendor($file)
+        : request_public($file);
+
+    return str_replace("FILE_PLACEHOLDER", $path, $tag[$type]);
 }
 
-function include_files(array $files): string {
+function include_files(array $files, bool $vendor = false): string {
 
     $include = "";
 
     foreach ($files as $file) {
-        $include .= generate_request($file);
+        $include .= generate_request($file, $vendor);
     }
 
     return $include;
@@ -42,7 +50,7 @@ function include_bootstrap(): string {
         "js/jquery-3.3.1.min.js",
         "js/popper.min.js",
         "js/bootstrap.min.js"
-    ]);
+    ], true);
 }
 
 function include_data_tables(): string {
@@ -51,7 +59,7 @@ function include_data_tables(): string {
         "css/dataTables.bootstrap4.min.css",
         "js/jquery.dataTables.min.js",
         "js/dataTables.bootstrap4.min.js"
-    ]);
+    ], true);
 }
 
 function include_jquery_ui(): string {
@@ -59,7 +67,7 @@ function include_jquery_ui(): string {
     return include_files([
         "css/jquery-ui.min.css",
         "js/jquery-ui.min.js"
-    ]);
+    ], true);
 }
 
 function include_dependencies(): string {

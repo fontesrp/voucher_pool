@@ -28,7 +28,7 @@
         <div class="form-group col-sm-2">
             <label for="new-vouche-code-reload">&nbsp;</label>
             <button type="button" class="btn btn-outline-secondary w-100" id="new-vouche-code-reload">
-                <img class="icon" src="<?= request_public("img/open-iconic/svg/reload.svg") ?>">
+                <img class="icon" src="<?= request_vendor("img/open-iconic/svg/reload.svg") ?>">
             </button>
         </div>
         <div class="form-group col-sm-6">

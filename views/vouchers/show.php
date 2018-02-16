@@ -34,7 +34,7 @@
                     <div class="input-group mr-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
-                                <img class="icon" src="<?= request_public("img/open-iconic/svg/magnifying-glass.svg") ?>">
+                                <img class="icon" src="<?= request_vendor("img/open-iconic/svg/magnifying-glass.svg") ?>">
                             </span>
                         </div>
                         <input id="vouchers-table-search" type="search" class="form-control" placeholder="Search">
@@ -42,7 +42,7 @@
 
                     <div class="dropdown">
                         <button type="button" class="btn btn-outline-secondary" data-toggle="dropdown">
-                            <img class="icon" src="<?= request_public("img/open-iconic/svg/cog.svg") ?>">
+                            <img class="icon" src="<?= request_vendor("img/open-iconic/svg/cog.svg") ?>">
                         </button>
                         <div class="dropdown-menu">
                             <a id="link-mark-as-used" class="dropdown-item" href="#">Mark as used</a>
