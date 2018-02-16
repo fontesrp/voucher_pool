@@ -4,7 +4,6 @@ require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../db/database.php";
 require_once __DIR__ . "/../models/voucher.php";
 require_once __DIR__ . "/../helpers/views.php";
-require_once __DIR__ . "/../helpers/random_string.php";
 require_once __DIR__ . "/../helpers/voucher_gen.php";
 
 class VouchersController {
@@ -88,17 +87,8 @@ class VouchersController {
         print "Voucher delete";
     }
 
-    private function uniqueCode() {
-
-        do {
-            $code = random_str(8);
-        } while ($this->voucher->find($code));
-
-        return $code;
-    }
-
     function genCode() {
-        print json_encode(["code" => $this->uniqueCode()]);
+        print json_encode(["code" => $this->voucher->uniqueCode()]);
     }
 
     function report() {
@@ -136,7 +126,7 @@ class VouchersController {
             $id = $this->voucher->create([
                 "recipient_id" => $rec["id"],
                 "special_offer_id" => $so_id,
-                "code" => $this->uniqueCode(),
+                "code" => $this->voucher->uniqueCode(),
                 "expiration_date" => $_POST["expiration-date"]
             ]);
 
@@ -173,6 +163,8 @@ class VouchersController {
 
         if ($result === null) {
             $response = ["error" => "invalid voucher"];
+        } else if ($result["used_at"] !== null) {
+            $response = ["error" => "voucher already used at " . $result["used_at"]];
         } else {
 
             $response = ["discount" => $result["discount"]];

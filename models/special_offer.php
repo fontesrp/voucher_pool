@@ -148,4 +148,13 @@ class SpecialOffer {
 
         return $this->db->getAll();
     }
+
+    function destroyAll(): bool {
+
+        $this->db->clear();
+
+        $this->db->setSql("DELETE FROM special_offers");
+
+        return $this->db->query();
+    }
 }

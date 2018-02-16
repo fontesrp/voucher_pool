@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . "/../db/database.php";
+require_once __DIR__ . "/../helpers/random_string.php";
 
 class Voucher {
 
@@ -286,6 +287,7 @@ class Voucher {
 
         $this->db->setSql("SELECT
                 vou.id,
+                vou.used_at,
                 sof.discount
             FROM
                 vouchers vou
@@ -317,7 +319,8 @@ class Voucher {
                 INNER JOIN recipients rec ON vou.recipient_id = rec.id
                 INNER JOIN special_offers sof ON vou.special_offer_id = sof.id
             WHERE
-                rec.email = ?");
+                vou.used_at IS NULL
+                AND rec.email = ?");
 
         $this->db->setParams([
             ["type" => "s", "value" => $email]
@@ -326,5 +329,23 @@ class Voucher {
         $this->db->query();
 
         return $this->db->getAll();
+    }
+
+    function destroyAll(): bool {
+
+        $this->db->clear();
+
+        $this->db->setSql("TRUNCATE TABLE vouchers");
+
+        return $this->db->query();
+    }
+
+    function uniqueCode(): string {
+
+        do {
+            $code = random_str(8);
+        } while ($this->find($code));
+
+        return $code;
     }
 }

@@ -159,4 +159,13 @@ class Recipient {
 
         return $this->db->getAll();
     }
+
+    function destroyAll(): bool {
+
+        $this->db->clear();
+
+        $this->db->setSql("DELETE FROM recipients");
+
+        return $this->db->query();
+    }
 }
