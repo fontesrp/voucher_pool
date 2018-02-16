@@ -108,6 +108,22 @@ const showVouchers = function (init) {
         });
     };
 
+    const iso2en = function (dateStr) {
+
+        if (dateStr === null) {
+            return "";
+        }
+
+        // Discard time
+        const isoDate = dateStr.split(" ")[0];
+
+        // ["yyyy", "mm", "dd"]
+        const isoComps = isoDate.split("-");
+
+        // mm/dd/yyyy
+        return `${isoComps[1]}/${isoComps[2]}/${isoComps[0]}`;
+    };
+
     const setupTable = function () {
 
         vouchersTable = $("#vouchers-table").DataTable({
@@ -116,7 +132,7 @@ const showVouchers = function (init) {
                 { data: "code", orderable : true },
                 { data: "used_at", orderable : false, render: (data) => `<img class="icon" src="${(data === null) ? icons.x : icons.check}">` },
                 { data: "email", orderable : true },
-                { data: "used_at", orderable : true }
+                { data: "used_at", orderable : true, render: iso2en }
             ],
             pageLength: 5,
             data: [],
