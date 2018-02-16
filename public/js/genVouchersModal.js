@@ -2,30 +2,18 @@ const setupGenVouchersModal = function (open) {
 
     "use strict";
 
-    const clearFields = function () {
-        $("#gen-voucher-modal input").val("");
-    };
-
-    const closeModal = function () {
-        $("#gen-voucher-modal-close").click();
-    };
-
-    const formatDate = function (props) {
-
-        const dt = props.find((prp) => (prp.name === "expiration-date"));
-
-        dt.value = datepickerIso("gen-voucher-expiration-date");
-    };
-
     const setupSave = function () {
 
         $("#gen-voucher-modal-save").click(function () {
 
             const voucherProps = $("#gen-voucher-form").serializeArray();
 
-            formatDate(voucherProps);
+            util.formatFormDate(voucherProps, {
+                fld: "expiration-date",
+                picker: "gen-voucher-expiration-date"
+            });
 
-            sendRequest({
+            util.sendRequest({
                 method: "POST",
                 url: root_path + "vouchers/gen",
                 data: $.param(voucherProps)
@@ -47,85 +35,13 @@ const setupGenVouchersModal = function (open) {
                 // Update report and vouchers table
                 showVouchers();
 
-                clearFields();
-                closeModal();
+                util.clearFields("gen-voucher-modal");
+                util.closeModal("gen-voucher-modal");
 
             }).catch(function () {
                 console.error("genVoucherModal.js setupSave: request failed");
                 console.error(arguments);
             });
-        });
-    };
-
-    const setupAutocomplete = function (param) {
-
-        $(`#${param.domId}`).autocomplete({
-            minLength: 2,
-            source: param.source,
-            select: function (ignore, ui) {
-                param.change(ui.item.value);
-            },
-            change: function (ignore, ui) {
-
-                const selected = (ui.item === null)
-                    ? null
-                    : ui.item.value;
-
-                param.change(selected);
-            }
-        });
-    };
-
-    const findSelectedAsset = function (param) {
-        return param.arr.find((obj) => (obj[param.key] === param.selected));
-    };
-
-    const setSpecialOfferProps = function (param) {
-
-        const so = findSelectedAsset({
-            arr: param.specialOffers,
-            key: "name",
-            selected: param.selected
-        });
-
-        const props = {
-            id: "",
-            discount: 0
-        };
-
-        if (so !== undefined) {
-            props.id = so.id;
-            props.discount = so.discount;
-        }
-
-        $("#gen-voucher-special-offer-id").val(props.id);
-        $("#gen-voucher-special-offer-discount").val(Number(props.discount) * 100);
-    };
-
-    const filterResponse = function (param) {
-        return param.data.map((obj) => obj[param.key]);
-    };
-
-    const searchAsset = function (param) {
-
-        sendRequest({
-            method: "GET",
-            url: param.url,
-            data: param.req
-        }).then(function (data) {
-
-            param.cache[param.cacheKey] = data;
-
-            param.res(filterResponse({
-                data,
-                key: param.filter
-            }));
-        }).catch(function () {
-
-            console.error("genVoucherModal.js searchAsset: Failed to search on server");
-            console.error(arguments);
-
-            param.res([]);
         });
     };
 
@@ -139,7 +55,7 @@ const setupGenVouchersModal = function (open) {
                 type: "autocomplete",
                 domId: "gen-voucher-special-offer",
                 source: function (req, res) {
-                    searchAsset({
+                    util.searchAsset({
                         req,
                         res,
                         cache,
@@ -149,9 +65,10 @@ const setupGenVouchersModal = function (open) {
                     });
                 },
                 change: function (selected) {
-                    setSpecialOfferProps({
+                    util.setSpecialOfferProps({
                         specialOffers: cache.specialOffers,
-                        selected
+                        selected,
+                        modalId: "gen-voucher"
                     });
                 }
             },
@@ -170,10 +87,10 @@ const setupGenVouchersModal = function (open) {
 
             switch (fld.type) {
             case "autocomplete":
-                setupAutocomplete(fld);
+                util.setupAutocomplete(fld);
                 break;
             case "datepicker":
-                setupDatepicker(fld)
+                util.setupDatepicker(fld)
                 break;
             case "uniqueCode":
                 setupUniqueCode();
@@ -183,12 +100,8 @@ const setupGenVouchersModal = function (open) {
         });
     };
 
-    const showModal = function () {
-        $("#gen-voucher-modal").modal("show");
-    };
-
     if (open) {
-        showModal();
+        util.showModal("gen-voucher-modal");
         return;
     }
 

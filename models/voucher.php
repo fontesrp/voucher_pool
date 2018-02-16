@@ -270,7 +270,10 @@ class Voucher {
                 vouchers vou
                 INNER JOIN recipients rec ON vou.recipient_id = rec.id
             ORDER BY
-                vou.created_at DESC");
+                vou.created_at DESC,
+                vou.used_at DESC,
+                rec.email,
+                vou.code");
 
         $this->db->query();
 

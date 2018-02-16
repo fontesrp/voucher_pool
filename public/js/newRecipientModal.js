@@ -2,21 +2,13 @@ const setupNewRecipientModal = function (open) {
 
     "use strict";
 
-    const closeModal = function () {
-        $("#add-recipient-modal-close").click();
-    };
-
-    const clearFields = function () {
-        $("#add-recipient-modal input").val("");
-    };
-
     const setupSave = function () {
 
         $("#add-recipient-modal-save").click(function () {
 
             const recipientProps = $("#new-recipient-form").serialize();
 
-            sendRequest({
+            util.sendRequest({
                 method: "POST",
                 url: root_path + "recipients/index",
                 data: recipientProps
@@ -36,8 +28,8 @@ const setupNewRecipientModal = function (open) {
                 // Update report and vouchers table
                 showVouchers();
 
-                clearFields();
-                closeModal();
+                util.clearFields("add-recipient-modal");
+                util.closeModal("add-recipient-modal");
 
             }).catch(function () {
                 console.error("newRecipientModal.js setupSave: request failed");
@@ -46,12 +38,8 @@ const setupNewRecipientModal = function (open) {
         });
     };
 
-    const showModal = function () {
-        $("#add-recipient-modal").modal("show");
-    };
-
     if (open) {
-        showModal();
+        util.showModal("add-recipient-modal");
         return;
     }
 

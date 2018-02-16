@@ -1,3 +1,5 @@
+const util = new Util();
+
 $(document).ready(function () {
 
     "use strict";

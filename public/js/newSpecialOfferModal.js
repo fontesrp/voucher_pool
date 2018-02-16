@@ -2,21 +2,13 @@ const setupNewSpecialOfferModal = function (open) {
 
     "use strict";
 
-    const closeModal = function () {
-        $("#add-special-offer-modal-close").click();
-    };
-
-    const clearFields = function () {
-        $("#add-special-offer-modal input").val("");
-    };
-
     const setupSave = function () {
 
         $("#add-special-offer-modal-save").click(function () {
 
             const specialOfferProps = $("#new-special-offer-form").serialize();
 
-            sendRequest({
+            util.sendRequest({
                 method: "POST",
                 url: root_path + "special_offers/index",
                 data: specialOfferProps
@@ -36,8 +28,8 @@ const setupNewSpecialOfferModal = function (open) {
                 // Update report and vouchers table
                 showVouchers();
 
-                clearFields();
-                closeModal();
+                util.clearFields("add-special-offer-modal");
+                util.closeModal("add-special-offer-modal");
 
             }).catch(function () {
                 console.error("newSpecialOfferModal.js setupSave: request failed");
@@ -61,12 +53,8 @@ const setupNewSpecialOfferModal = function (open) {
         });
     };
 
-    const showModal = function () {
-        $("#add-special-offer-modal").modal("show");
-    };
-
     if (open) {
-        showModal();
+        util.showModal("add-special-offer-modal");
         return;
     }
 

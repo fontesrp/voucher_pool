@@ -74,13 +74,13 @@ const showVouchers = function (init) {
 
     const updateReport = function () {
 
-        sendRequest({
+        util.sendRequest({
             method: "GET",
             url: root_path + "vouchers/report"
         }).then(function (data) {
 
             Object.keys(data).forEach(function (type) {
-                data[type] = numberFormat(data[type]);
+                data[type] = util.numberFormat(data[type]);
             });
 
             $("#generated-vouchers").html(data.generated);
@@ -94,7 +94,7 @@ const showVouchers = function (init) {
 
     const updateTable = function () {
 
-        sendRequest({
+        util.sendRequest({
             method: "GET",
             url: root_path + "vouchers/index",
             data: {

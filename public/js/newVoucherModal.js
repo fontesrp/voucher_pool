@@ -2,30 +2,18 @@ const setupNewVoucherModal = function () {
 
     "use strict";
 
-    const clearFields = function () {
-        $("#add-voucher-modal input").val("");
-    };
-
-    const closeModal = function () {
-        $("#add-voucher-modal-close").click();
-    };
-
-    const formatDate = function (props) {
-
-        const dt = props.find((prp) => (prp.name === "expiration-date"));
-
-        dt.value = datepickerIso("new-voucher-expiration-date");
-    };
-
     const setupSave = function () {
 
         $("#add-voucher-modal-save").click(function () {
 
             const voucherProps = $("#new-voucher-form").serializeArray();
 
-            formatDate(voucherProps);
+            util.formatFormDate(voucherProps, {
+                fld: "expiration-date",
+                picker: "new-voucher-expiration-date"
+            });
 
-            sendRequest({
+            util.sendRequest({
                 method: "POST",
                 url: root_path + "vouchers/index",
                 data: $.param(voucherProps)
@@ -43,8 +31,8 @@ const setupNewVoucherModal = function () {
                 // Update report and vouchers table
                 showVouchers();
 
-                clearFields();
-                closeModal();
+                util.clearFields("add-voucher-modal");
+                util.closeModal("add-voucher-modal");
 
             }).catch(function () {
                 console.error("newVoucherModal.js setupSave: request failed");
@@ -62,7 +50,7 @@ const setupNewVoucherModal = function () {
         const $reloadBtn = $("#new-vouche-code-reload");
 
         $reloadBtn.click(function () {
-            sendRequest({
+            util.sendRequest({
                 method: "GET",
                 url: root_path + "vouchers/code_gen"
             }).then(updateCode).catch(function () {
@@ -76,55 +64,9 @@ const setupNewVoucherModal = function () {
         });
     };
 
-    const setupAutocomplete = function (param) {
-
-        $(`#${param.domId}`).autocomplete({
-            minLength: 2,
-            source: param.source,
-            select: function (ignore, ui) {
-                param.change(ui.item.value);
-            },
-            change: function (ignore, ui) {
-
-                const selected = (ui.item === null)
-                    ? null
-                    : ui.item.value;
-
-                param.change(selected);
-            }
-        });
-    };
-
-    const findSelectedAsset = function (param) {
-
-        return param.arr.find((obj) => (obj[param.key] === param.selected));
-    };
-
-    const setSpecialOfferProps = function (param) {
-
-        const so = findSelectedAsset({
-            arr: param.specialOffers,
-            key: "name",
-            selected: param.selected
-        });
-
-        const props = {
-            id: "",
-            discount: 0
-        };
-
-        if (so !== undefined) {
-            props.id = so.id;
-            props.discount = so.discount;
-        }
-
-        $("#new-voucher-special-offer-id").val(props.id);
-        $("#new-voucher-special-offer-discount").val(Number(props.discount) * 100);
-    };
-
     const setRecipientId = function (param) {
 
-        const rec = findSelectedAsset({
+        const rec = util.findSelectedAsset({
             arr: param.recipients,
             key: "email",
             selected: param.selected
@@ -137,33 +79,6 @@ const setupNewVoucherModal = function () {
         $("#new-voucher-recipient-id").val(id);
     };
 
-    const filterResponse = function (param) {
-        return param.data.map((obj) => obj[param.key]);
-    };
-
-    const searchAsset = function (param) {
-
-        sendRequest({
-            method: "GET",
-            url: param.url,
-            data: param.req
-        }).then(function (data) {
-
-            param.cache[param.cacheKey] = data;
-
-            param.res(filterResponse({
-                data,
-                key: param.filter
-            }));
-        }).catch(function () {
-
-            console.error("newVoucherModal.js searchAsset: Failed to search on server");
-            console.error(arguments);
-
-            param.res([]);
-        });
-    };
-
     const setupFields = function () {
 
         const cache = {};
@@ -174,7 +89,7 @@ const setupNewVoucherModal = function () {
                 type: "autocomplete",
                 domId: "new-voucher-recipient",
                 source: function (req, res) {
-                    searchAsset({
+                    util.searchAsset({
                         req,
                         res,
                         cache,
@@ -194,7 +109,7 @@ const setupNewVoucherModal = function () {
                 type: "autocomplete",
                 domId: "new-voucher-special-offer",
                 source: function (req, res) {
-                    searchAsset({
+                    util.searchAsset({
                         req,
                         res,
                         cache,
@@ -204,9 +119,10 @@ const setupNewVoucherModal = function () {
                     });
                 },
                 change: function (selected) {
-                    setSpecialOfferProps({
+                    util.setSpecialOfferProps({
                         specialOffers: cache.specialOffers,
-                        selected
+                        selected,
+                        modalId: "new-voucher"
                     });
                 }
             },
@@ -228,10 +144,10 @@ const setupNewVoucherModal = function () {
 
             switch (fld.type) {
             case "autocomplete":
-                setupAutocomplete(fld);
+                util.setupAutocomplete(fld);
                 break;
             case "datepicker":
-                setupDatepicker(fld)
+                util.setupDatepicker(fld)
                 break;
             case "uniqueCode":
                 setupUniqueCode();

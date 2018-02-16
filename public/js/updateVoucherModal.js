@@ -2,10 +2,6 @@ const setupUpdateVoucherModal = function (open, vouchersIds) {
 
     "use strict";
 
-    const closeModal = function () {
-        $("#upd-voucher-modal-close").click();
-    };
-
     const twoDigits = function (num) {
         return String(num).padStart(2, "0");
     };
@@ -24,7 +20,7 @@ const setupUpdateVoucherModal = function (open, vouchersIds) {
 
     const concatenateDateTime = function () {
 
-        const isoDate = datepickerIso("upd-voucher-date");
+        const isoDate = util.datepickerIso("upd-voucher-date");
 
         $("#upd-voucher-date-time").val(`${isoDate} ${$("#upd-voucher-time").val()}`);
     };
@@ -37,7 +33,7 @@ const setupUpdateVoucherModal = function (open, vouchersIds) {
 
             const voucherProps = $("#upd-voucher-form").serialize();
 
-            sendRequest({
+            util.sendRequest({
                 method: "PATCH",
                 url: root_path + "vouchers/update",
                 data: voucherProps
@@ -60,7 +56,7 @@ const setupUpdateVoucherModal = function (open, vouchersIds) {
                 showVouchers();
 
                 setDefaultVals();
-                closeModal();
+                util.closeModal("upd-voucher-modal");
 
             }).catch(function () {
                 console.error("updateVoucherModal.js setupSave: request failed");
@@ -69,21 +65,17 @@ const setupUpdateVoucherModal = function (open, vouchersIds) {
         });
     };
 
-    const showModal = function () {
-        $("#upd-voucher-modal").modal("show");
-    };
-
     const setIds = function () {
         $("#upd-voucher-ids").val(vouchersIds.join(","));
     };
 
     if (open) {
         setIds();
-        showModal();
+        util.showModal("upd-voucher-modal");
         return;
     }
 
-    setupDatepicker({
+    util.setupDatepicker({
         domId: "upd-voucher-date",
         options: {
             maxDate: 0
