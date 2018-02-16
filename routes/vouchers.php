@@ -64,3 +64,12 @@ function gen_voucher_code_path($method) {
 
     call_voucher_method($routes[$method]);
 }
+
+function vouchers_report_path($method) {
+
+    $routes = [
+        "GET" => "report"
+    ];
+
+    call_voucher_method($routes[$method]);
+}

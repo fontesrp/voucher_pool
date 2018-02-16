@@ -8,6 +8,7 @@ class Database {
     private $sql = "";
     private $params = [];
     private $response = null;
+    private $errors = [];
 
     function __construct() {
 
@@ -60,6 +61,7 @@ class Database {
 
         $result = $statement->execute();
 
+        $this->errors = $statement->error_list;
         $this->response = $statement->get_result();
 
         $statement->close();
@@ -98,5 +100,9 @@ class Database {
 
     function getInsertId(): int {
         return $this->connector->insert_id;
+    }
+
+    function getErrors(): array {
+        return $this->errors;
     }
 }

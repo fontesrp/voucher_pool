@@ -18,11 +18,30 @@ class VouchersController {
     }
 
     function index() {
-        print "Voucher index";
+
+        $response = (array_key_exists("recipientInfo", $_GET) && $_GET["recipientInfo"] === "true")
+            ? $this->voucher->allWithRecipient()
+            : $this->voucher->all();
+
+        print json_encode($response);
     }
 
     function create() {
-        print "Voucher create";
+
+        $this->voucher->create([
+            "recipient_id" => $_POST["recipient-id"],
+            "special_offer_id" => $_POST["special-offer-id"],
+            "code" => $_POST["code"],
+            "expiration_date" => $_POST["expiration-date"]
+        ]);
+
+        $id = $this->voucher->getId();
+
+        $result = ($id > 0)
+            ? ["id" => $id]
+            : ["error" => $this->voucher->getErrors()];
+
+        print json_encode($result);
     }
 
     function new_form() {
@@ -30,15 +49,38 @@ class VouchersController {
     }
 
     function show() {
-
-        $report = $this->voucher->report();
-        $vouchers = $this->voucher->first(10);
-
         require_once __DIR__ . "/../views/vouchers/show.php";
     }
 
     function update() {
-        print "Voucher update";
+
+        parse_str(file_get_contents("php://input"), $_PATCH);
+
+        $errors = [];
+        $updQtt = 0;
+
+        foreach (explode(",", $_PATCH["ids"]) as $id) {
+
+            $this->voucher->find("", (int) $id);
+
+            $success = $this->voucher->update([
+                "used_at" => $_PATCH["used-at"]
+            ]);
+
+            if ($success) {
+                $updQtt++;
+            } else {
+                $errors = array_merge($errors, $this->voucher->getErrors());
+            }
+        }
+
+        $response = ["updated_qtt" => $updQtt];
+
+        if (count($errors) !== 0) {
+            $response["error"] = $errors;
+        }
+
+        print json_encode($response);
     }
 
     function delete() {
@@ -52,5 +94,9 @@ class VouchersController {
         } while ($this->voucher->find($code));
 
         print json_encode(["code" => $code]);
+    }
+
+    function report() {
+        print json_encode($this->voucher->report());
     }
 }

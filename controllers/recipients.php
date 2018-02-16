@@ -20,7 +20,19 @@ class RecipientsController {
     }
 
     function create() {
-        print "Recipient create";
+
+        $this->recipient->create([
+            "recipient_name" => $_POST["name"],
+            "email" => $_POST["email"]
+        ]);
+
+        $id = $this->recipient->getId();
+
+        $response = ($id > 0)
+            ? ["id" => $id]
+            : ["error" => $this->recipient->getErrors()];
+
+        print json_encode($response);
     }
 
     function new_form() {

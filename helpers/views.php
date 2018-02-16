@@ -71,6 +71,11 @@ function include_application(): string {
 
     return include_files([
         "css/application.css",
+        "js/util.js",
+        "js/newVoucherModal.js",
+        "js/updateVoucherModal.js",
+        "js/newRecipientModal.js",
+        "js/showVouchers.js",
         "js/application.js"
     ]);
 }

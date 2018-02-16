@@ -7,6 +7,7 @@ require_once __DIR__ . "/../db/database.php";
 class Voucher {
 
     private $db;
+    private $errors = [];
 
     private $id = 0;
     private $recipient_id = 0;
@@ -38,7 +39,17 @@ class Voucher {
         }
     }
 
-    function find(string $code): bool {
+    function find(string $code, int $id = 0): bool {
+
+        if ($code === "") {
+            $column = "id";
+            $type = "i";
+            $value = $id;
+        } else {
+            $column = "code";
+            $type = "s";
+            $value = $code;
+        }
 
         $this->db->clear();
 
@@ -52,10 +63,10 @@ class Voucher {
                 created_at,
                 updated_at
             FROM vouchers
-            WHERE code = ?");
+            WHERE " . $column . " = ?");
 
         $this->db->setParams([
-            ["type" => "s", "value" => $code]
+            ["type" => $type, "value" => $value]
         ]);
 
         $this->db->query();
@@ -96,6 +107,7 @@ class Voucher {
         $this->db->query();
 
         $this->id = $this->db->getInsertId();
+        $this->errors = $this->db->getErrors();
 
         return $this->id;
     }
@@ -124,7 +136,10 @@ class Voucher {
             ["type" => "i", "value" => $this->id]
         ]);
 
-        return $this->db->query();
+        $result = $this->db->query();
+        $this->errors = $this->db->getErrors();
+
+        return $result;
     }
 
     function delete(): bool {
@@ -168,6 +183,10 @@ class Voucher {
         return $this->id;
     }
 
+    function getErrors(): array {
+        return $this->errors;
+    }
+
     function report(): array {
 
         $this->db->clear();
@@ -188,7 +207,7 @@ class Voucher {
         if ($row = $this->db->getRow()) {
             $report["generated"] = (int) $row["total"];
             $report["unused"] = (int) $row["unused"];
-            $report["used"] = $report["generated"] - $report["used"];
+            $report["used"] = $report["generated"] - $report["unused"];
         }
 
         return $report;
@@ -222,6 +241,36 @@ class Voucher {
         $this->db->setSql($sql);
 
         $this->db->setParams($params);
+
+        $this->db->query();
+
+        return $this->db->getAll();
+    }
+
+    function all(): array {
+        return $this->first();
+    }
+
+    function allWithRecipient(): array {
+
+        $this->db->clear();
+
+        $this->db->setSql("SELECT
+                vou.id,
+                vou.recipient_id,
+                vou.special_offer_id,
+                vou.code,
+                vou.expiration_date,
+                vou.used_at,
+                vou.created_at,
+                vou.updated_at,
+                rec.recipient_name,
+                rec.email
+            FROM
+                vouchers vou
+                INNER JOIN recipients rec ON vou.recipient_id = rec.id
+            ORDER BY
+                vou.created_at");
 
         $this->db->query();
 
