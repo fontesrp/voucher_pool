@@ -7,87 +7,566 @@
 	},
 	"item": [
 		{
-			"name": "recipients",
+			"name": "Routes",
 			"description": "",
 			"item": [
 				{
-					"name": "index",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
+					"name": "recipients",
+					"description": "",
+					"item": [
+						{
+							"name": "index",
+							"event": [
 								{
-									"key": "recipient_name",
-									"value": "Jon Snow",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "jon.snow@winterfell.gov",
-									"description": "",
-									"type": "text"
+									"listen": "test",
+									"script": {
+										"id": "86df19d6-14fd-4667-9fcb-217147635e48",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"List all recipients\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.length > 0).to.be.true;",
+											"});"
+										]
+									}
 								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/index",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
 							],
-							"path": [
-								"voucher_pool",
-								"recipients",
-								"index"
-							]
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "recipient_name",
+											"value": "Jon Snow",
+											"description": "",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "jon.snow@winterfell.gov",
+											"description": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/index",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"recipients",
+										"index"
+									]
+								},
+								"description": "Table showing all recipients"
+							},
+							"response": []
 						},
-						"description": "Table showing all recipients"
-					},
-					"response": []
+						{
+							"name": "create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9b66e258-3254-42af-9e06-9c67d36b7bc6",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Create recipient if email is unique\", function () {",
+											"    ",
+											"    const jsonData = pm.response.json();",
+											"    ",
+											"    if (jsonData.id !== undefined) {",
+											"        pm.expect(jsonData.id > 0).to.be.true;",
+											"    } else {",
+											"        pm.expect(jsonData.error.length > 0).to.be.true;",
+											"    }",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Postman Recipient",
+											"description": "",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "postman.recipient@example.com",
+											"description": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/index",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"recipients",
+										"index"
+									]
+								},
+								"description": "Create a new recipient"
+							},
+							"response": []
+						},
+						{
+							"name": "search",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a93ef2ea-4dea-4140-9ce0-f8b0866da1f2",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Return root recipient\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData[0].email).to.eql(\"jon.snow@winterfell.gov\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/search?term=jon.snow",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"recipients",
+										"search"
+									],
+									"query": [
+										{
+											"key": "term",
+											"value": "jon.snow",
+											"equals": true
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "new",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/new",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
+					"name": "vouchers",
+					"description": "",
+					"item": [
+						{
+							"name": "index",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17e3a28b-6040-407a-8e35-9c135887193d",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Returns all vouchers\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.length > 0).to.be.true;",
+											"});"
+										]
+									}
+								}
 							],
-							"path": [
-								"voucher_pool",
-								"recipients",
-								"new"
-							]
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "recipient_name",
+											"value": "Jon Snow",
+											"description": "",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "jon.snow@winterfell.gov",
+											"description": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/index",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"vouchers",
+										"index"
+									]
+								},
+								"description": "Table showing all vouchers"
+							},
+							"response": []
 						},
-						"description": "Form for adding a new recipient"
-					},
-					"response": []
+						{
+							"name": "show",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "010f41d7-175b-4709-84b0-b0ff8b4e3ef3",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/show",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"vouchers",
+										"show"
+									]
+								},
+								"description": "Table with information about the voucher"
+							},
+							"response": []
+						},
+						{
+							"name": "new_code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8cfb2d37-6bc8-437d-be3c-cd99321483aa",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Returns 8-digit code\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.code.length).to.eql(8);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/code_gen",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"vouchers",
+										"code_gen"
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "report",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ccf75495-e799-4c49-8903-3b274afe29a6",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Your test name\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.generated !== undefined && jsonData.unused !== undefined && jsonData.used !== undefined).to.be.true;",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/report",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"vouchers",
+										"report"
+									]
+								},
+								"description": "Reports number o generated, used and unused vouchers."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "create",
+					"name": "special_offers",
+					"description": "",
+					"item": [
+						{
+							"name": "index",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f76a6e14-dc02-451c-a2c0-0c3bc15b881d",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Return all special offers\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.length > 0).to.be.true;",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "recipient_name",
+											"value": "Jon Snow",
+											"description": "",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "jon.snow@winterfell.gov",
+											"description": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/index",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"special_offers",
+										"index"
+									]
+								},
+								"description": "Table showing all special offers"
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0488830f-8e12-413f-8a12-d25ed6f28cbe",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Your test name\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id > 0).to.be.true;",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Postman SO",
+											"description": "",
+											"type": "text"
+										},
+										{
+											"key": "discount",
+											"value": "0.123",
+											"description": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/index",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"special_offers",
+										"index"
+									]
+								},
+								"description": "Create a new special offer"
+							},
+							"response": []
+						},
+						{
+							"name": "search",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05f8fa53-cb57-4840-93b8-c34e66505f4e",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Root special offer name is Winter Clearance\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData[0].name).to.eql(\"Winter Clearance\");",
+											"});",
+											"",
+											"pm.test(\"Root special offer discount is 25%\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData[0].discount).to.eql(0.25);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/search?term=Winter Clearance",
+									"protocol": "http",
+									"host": [
+										"ec2-18-217-163-134",
+										"us-east-2",
+										"compute",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"voucher_pool",
+										"special_offers",
+										"search"
+									],
+									"query": [
+										{
+											"key": "term",
+											"value": "Winter Clearance",
+											"equals": true
+										}
+									]
+								},
+								"description": "Table with information about the special offer"
+							},
+							"response": []
+						}
+					],
 					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9479bd80-33f2-4af1-a45a-f650b7caf3c4",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
 						{
 							"listen": "test",
 							"script": {
-								"id": "28d5d098-0079-4762-8a4c-082c99e47563",
+								"id": "0eed6dfc-bb7a-4316-8ce9-bf32d89562fb",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -95,695 +574,14 @@
 							}
 						}
 					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "recipient_name",
-									"value": "Postman Recipient",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "postman.recipient@example.com",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/index",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"recipients",
-								"index"
-							]
-						},
-						"description": "Create a new recipient"
-					},
-					"response": []
-				},
-				{
-					"name": "show",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/show?id=22",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"recipients",
-								"show"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "22",
-									"equals": true
-								}
-							]
-						},
-						"description": "Table with information about the recipient"
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "recipient_name",
-									"value": "New Postman Recipient",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "new.postman@example.com",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/update",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"recipients",
-								"update"
-							]
-						},
-						"description": "Update recipient"
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/recipients/destroy",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"recipients",
-								"destroy"
-							]
-						},
-						"description": "Delete recipient"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "vouchers",
-			"description": "",
-			"item": [
-				{
-					"name": "index",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "recipient_name",
-									"value": "Jon Snow",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "jon.snow@winterfell.gov",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/index",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"vouchers",
-								"index"
-							]
-						},
-						"description": "Table showing all vouchers"
-					},
-					"response": []
-				},
-				{
-					"name": "new",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/new",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"vouchers",
-								"new"
-							]
-						},
-						"description": "Form for adding a new voucher"
-					},
-					"response": []
-				},
-				{
-					"name": "create",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "28d5d098-0079-4762-8a4c-082c99e47563",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "recipient_id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "special_offer_id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "code",
-									"value": "abcdefgh",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "expiration_date",
-									"value": "2018-12-31",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/index",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"vouchers",
-								"index"
-							]
-						},
-						"description": "Create a new voucher"
-					},
-					"response": []
-				},
-				{
-					"name": "show",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/show?id=22",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"vouchers",
-								"show"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "22",
-									"equals": true
-								}
-							]
-						},
-						"description": "Table with information about the voucher"
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "recipient_id",
-									"value": "321",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "special_offer_id",
-									"value": "321",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "code",
-									"value": "hgfedcba",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "expiration_date",
-									"value": "2018-06-10",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "used_at",
-									"value": "2018-02-13",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/update",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"vouchers",
-								"update"
-							]
-						},
-						"description": "Update voucher"
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/destroy",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"vouchers",
-								"destroy"
-							]
-						},
-						"description": "Delete voucher"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "special_offers",
-			"description": "",
-			"item": [
-				{
-					"name": "index",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "recipient_name",
-									"value": "Jon Snow",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "jon.snow@winterfell.gov",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/index",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"special_offers",
-								"index"
-							]
-						},
-						"description": "Table showing all special offers"
-					},
-					"response": []
-				},
-				{
-					"name": "new",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/new",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"special_offers",
-								"new"
-							]
-						},
-						"description": "Form for adding a new special offer"
-					},
-					"response": []
-				},
-				{
-					"name": "create",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "28d5d098-0079-4762-8a4c-082c99e47563",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Postman SO",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "discount",
-									"value": "0.5",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/index",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"special_offers",
-								"index"
-							]
-						},
-						"description": "Create a new special offer"
-					},
-					"response": []
-				},
-				{
-					"name": "show",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/show?id=22",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"special_offers",
-								"show"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "22",
-									"equals": true
-								}
-							]
-						},
-						"description": "Table with information about the special offer"
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "New Postman SO",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "discount",
-									"value": "0.4",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/update",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"special_offers",
-								"update"
-							]
-						},
-						"description": "Update special offer"
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "id",
-									"value": "123",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/special_offers/destroy",
-							"protocol": "http",
-							"host": [
-								"ec2-18-217-163-134",
-								"us-east-2",
-								"compute",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"voucher_pool",
-								"special_offers",
-								"destroy"
-							]
-						},
-						"description": "Delete special offer"
-					},
-					"response": []
+					"_postman_isSubFolder": true
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "9479bd80-33f2-4af1-a45a-f650b7caf3c4",
+						"id": "80d40876-ad85-4d3f-bc15-eee7d507cba1",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -793,7 +591,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0eed6dfc-bb7a-4316-8ce9-bf32d89562fb",
+						"id": "ee9034fd-b158-4373-8e25-46da7ba25d5f",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -801,6 +599,250 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Seed database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b1624251-b897-450a-a662-56a4447491db",
+						"type": "text/javascript",
+						"exec": [
+							"pm.globals.set(\"new_seed\", true);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Created root recipient\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Created root recipient\");",
+							"});",
+							"",
+							"pm.test(\"Created at least one random recipient\", function () {",
+							"    ",
+							"    const matches = pm.response.text().match(/Created \\d+ random recipients/gm);",
+							"    pm.expect(matches !== null && matches.length > 0).to.be.true;",
+							"    ",
+							"    const created = matches[0].replace(/\\D/g, \"\");",
+							"    pm.expect(Number(created) > 0).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Created root special offer\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Created root special offer\");",
+							"});",
+							"",
+							"pm.test(\"Created at least one random special offer\", function () {",
+							"    ",
+							"    const matches = pm.response.text().match(/Created \\d+ random special offers/gm);",
+							"    pm.expect(matches !== null && matches.length > 0).to.be.true;",
+							"    ",
+							"    const created = matches[0].replace(/\\D/g, \"\");",
+							"    pm.expect(Number(created) > 0).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Created root voucher\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Created root voucher\");",
+							"});",
+							"",
+							"pm.test(\"Created at least one random voucher\", function () {",
+							"    ",
+							"    const matches = pm.response.text().match(/Created \\d+ random vouchers/gm);",
+							"    pm.expect(matches !== null && matches.length > 0).to.be.true;",
+							"    ",
+							"    const created = matches[0].replace(/\\D/g, \"\");",
+							"    pm.expect(Number(created) > 0).to.be.true;",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/db/seed.php",
+					"protocol": "http",
+					"host": [
+						"ec2-18-217-163-134",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"voucher_pool",
+						"db",
+						"seed.php"
+					]
+				},
+				"description": "Fill database with random data for testing. This will delete every record on the database prior to the request."
+			},
+			"response": []
+		},
+		{
+			"name": "Genereate vouchers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89765524-30a2-4db9-8967-cebb7b4c1dc2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Generated 16 vouchers\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.created_qtt).to.eql(16);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "expiration-date",
+							"value": "2018-06-18",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "special-offer-name",
+							"value": "Winter Clearance",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/gen",
+					"protocol": "http",
+					"host": [
+						"ec2-18-217-163-134",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"voucher_pool",
+						"vouchers",
+						"gen"
+					]
+				},
+				"description": "For a given Special Offer and an expiration date, generate for each Recipient a Voucher Code."
+			},
+			"response": []
+		},
+		{
+			"name": "Validate voucher",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e76c4fb-0736-4415-bbe6-ee4681bd6f1b",
+						"type": "text/javascript",
+						"exec": [
+							"const newSeed = pm.globals.get(\"new_seed\");",
+							"",
+							"pm.test(\"Validated voucher\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    if (newSeed) {",
+							"        pm.expect(jsonData.discount).to.eql(0.25);",
+							"        pm.globals.set(\"new_seed\", false);",
+							"    } else {",
+							"        const matches = jsonData.error.match(/^voucher already used at \\d{4}(-\\d{2}){2} (\\d{2}:){2}\\d{2}$/);",
+							"        pm.expect(matches !== null && matches.length > 0).to.be.true;",
+							"    }",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "CcyklA5I",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "jon.snow@winterfell.gov",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/validate",
+					"protocol": "http",
+					"host": [
+						"ec2-18-217-163-134",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"voucher_pool",
+						"vouchers",
+						"validate"
+					]
+				},
+				"description": "Send a Voucher Code and Email. The server validates the Voucher Code and, if it is valid, returns the Percentage Discount and set the date of usage."
+			},
+			"response": []
+		},
+		{
+			"name": "Search vouchers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/search?email=jon.snow@winterfell.gov",
+					"protocol": "http",
+					"host": [
+						"ec2-18-217-163-134",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"voucher_pool",
+						"vouchers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "jon.snow@winterfell.gov",
+							"equals": true
+						}
+					]
+				},
+				"description": "For a given email, return all of its valid voucher codes with the name of the special offer."
+			},
+			"response": []
 		}
 	]
 }
