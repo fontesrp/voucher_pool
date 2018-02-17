@@ -41,7 +41,7 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "recipient_name",
+											"key": "name",
 											"value": "Jon Snow",
 											"description": "",
 											"type": "text"
@@ -219,7 +219,7 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "recipient_name",
+											"key": "name",
 											"value": "Jon Snow",
 											"description": "",
 											"type": "text"
@@ -408,7 +408,7 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "recipient_name",
+											"key": "name",
 											"value": "Jon Snow",
 											"description": "",
 											"type": "text"

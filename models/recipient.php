@@ -19,7 +19,7 @@ class Recipient {
     private $errors = [];
 
     private $id = 0;
-    private $recipient_name = "";
+    private $name = "";
     private $email = "";
     private $created_at;
     private $updated_at;
@@ -35,7 +35,7 @@ class Recipient {
 
     private function setParams(array $params): void {
 
-        $props = ["id", "recipient_name", "email", "created_at", "updated_at"];
+        $props = ["id", "name", "email", "created_at", "updated_at"];
 
         foreach ($props as $prop) {
             if (array_key_exists($prop, $params)) {
@@ -49,7 +49,7 @@ class Recipient {
         $this->db->clear();
 
         $this->db->setSql("SELECT
-                id, recipient_name, email, created_at, updated_at
+                id, name, email, created_at, updated_at
             FROM recipients
             WHERE email = ?");
 
@@ -75,11 +75,11 @@ class Recipient {
 
         $this->db->clear();
 
-        $this->db->setSql("INSERT INTO recipients (recipient_name, email)
+        $this->db->setSql("INSERT INTO recipients (name, email)
             VALUES (?, ?)");
 
         $this->db->setParams([
-            ["type" => "s", "value" => $this->recipient_name],
+            ["type" => "s", "value" => $this->name],
             ["type" => "s", "value" => $this->email]
         ]);
 
@@ -98,11 +98,11 @@ class Recipient {
         $this->db->clear();
 
         $this->db->setSql("UPDATE recipients
-            SET recipient_name = ?, email = ?
+            SET name = ?, email = ?
             WHERE id = ?");
 
         $this->db->setParams([
-            ["type" => "s", "value" => $this->recipient_name],
+            ["type" => "s", "value" => $this->name],
             ["type" => "s", "value" => $this->email],
             ["type" => "i", "value" => $this->id]
         ]);
@@ -128,7 +128,7 @@ class Recipient {
     }
 
     function getName(): string {
-        return $this->recipient_name;
+        return $this->name;
     }
 
     function getEmail(): string {
@@ -162,7 +162,7 @@ class Recipient {
 
         $this->db->clear();
 
-        $this->db->setSql("SELECT id, recipient_name, email FROM recipients");
+        $this->db->setSql("SELECT id, name, email FROM recipients");
 
         $this->db->query();
 

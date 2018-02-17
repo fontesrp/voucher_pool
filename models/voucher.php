@@ -280,7 +280,7 @@ class Voucher {
                 vou.used_at,
                 vou.created_at,
                 vou.updated_at,
-                rec.recipient_name,
+                rec.name,
                 rec.email
             FROM
                 vouchers vou

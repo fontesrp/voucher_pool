@@ -31,7 +31,7 @@ class RecipientsController {
     function create(): void {
 
         $this->recipient->create([
-            "recipient_name" => $_POST["name"],
+            "name" => $_POST["name"],
             "email" => $_POST["email"]
         ]);
 

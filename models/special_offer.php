@@ -128,7 +128,7 @@ class SpecialOffer {
     }
 
     function getName(): string {
-        return $this->recipient_name;
+        return $this->name;
     }
 
     function getDiscount(): float {
