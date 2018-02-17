@@ -9,7 +9,7 @@ CREATE TABLE vouchers (
     id SERIAL PRIMARY KEY,
     recipient_id BIGINT UNSIGNED,
     special_offer_id BIGINT UNSIGNED,
-    code VARCHAR(8) NOT NULL UNIQUE INDEX,
+    code VARCHAR(8) NOT NULL UNIQUE,
     expiration_date DATE NOT NULL,
     used_at DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
