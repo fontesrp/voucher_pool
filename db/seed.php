@@ -28,7 +28,7 @@ $special_offer->destroyAll();
 
 // Create root recipient
 $root_rec = [
-    "recipient_name" => "Jon Snow",
+    "name" => "Jon Snow",
     "email" => "jon.snow@winterfell.gov"
 ];
 
@@ -45,7 +45,7 @@ for ($i = 0; $i < 15; $i++) {
     $last_name = $faker->lastName;
 
     $rec = [
-        "recipient_name" => $first_name . " " . $last_name,
+        "name" => $first_name . " " . $last_name,
         "email" => strtolower($first_name . "." . $last_name . "@example.com")
     ];
 
@@ -123,8 +123,10 @@ for ($i = 0; $i < 50; $i++) {
         $vou["code"] = $voucher->uniqueCode();
         $vou["expiration_date"] = $faker->dateTimeBetween("now", "+1 year")->format("Y-m-d");
 
-        if (random_int(0, 10) > 5) {
+        if (random_int(0, 1)) {
             $vou["used_at"] = $faker->date();
+        } else {
+            $vou["used_at"] = null;
         }
 
         $id = $voucher->create($vou);
