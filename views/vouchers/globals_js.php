@@ -1,3 +1,13 @@
+<?php
+/**
+ * /views/vouchers/globals_js.php
+ *
+ * Generates global variables for the applications JavaScripts that mus be
+ * acquired from the server
+ *
+ */
+?>
+
 <script type="text/javascript">
 
     const icons = {

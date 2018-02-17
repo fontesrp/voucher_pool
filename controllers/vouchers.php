@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * /constrollers/vouchers.php
+ *
+ * Controller responsible for handling requests for vouchers. This is the main
+ * controller in the application. It handles requests related to most of the
+ * available features.
+ *
+ */
+
 require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../db/database.php";
 require_once __DIR__ . "/../models/voucher.php";

@@ -1,3 +1,11 @@
+/**
+ * /public/js/updateVoucherModal.js
+ *
+ * Sets up the functionalities and behaviors of elements inside the modal for
+ * setting vouchers as used.
+ *
+ */
+
 const setupUpdateVoucherModal = function (open, vouchersIds) {
 
     "use strict";

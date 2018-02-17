@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * /helpers/clean_uri.php
+ *
+ * In the case of a get request, the request URI can conatin a query, wich could
+ * break the router functionality. Since the query is also stored in the $_SERVER
+ * and $_GET superglobals, and will only be used by the controller, the URI is
+ * stripped of it.
+ *
+ */
+
 function clean_uri(): string {
 
     // `/my/path?query`

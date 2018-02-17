@@ -1,3 +1,13 @@
+<?php
+/**
+ * /views/special_offer/new.php
+ *
+ * Form for creating a new special offer. Since it's used only inside a modal in
+ * the main application page, it doesn't need the standard HTML page tags.
+ *
+ */
+?>
+
 <form id="new-special-offer-form">
 
     <div class="form-group ui-widget">

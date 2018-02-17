@@ -1,3 +1,10 @@
+/**
+ * /public/js/application.js
+ *
+ * Initializes global objects and page components
+ *
+ */
+
 const util = new Util();
 
 $(document).ready(function () {

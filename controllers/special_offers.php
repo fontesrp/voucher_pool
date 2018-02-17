@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * /controllers/special_offers.php
+ *
+ * Controller responsible for handling requests for special offers. As there are
+ * no views currently associated with special offers, this file will deal only
+ * with the special_offer model for handling HTTP requests.
+ *
+ */
+
 require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../db/database.php";
 require_once __DIR__ . "/../models/special_offer.php";

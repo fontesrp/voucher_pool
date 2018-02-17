@@ -1,3 +1,11 @@
+/**
+ * /public/js/genVouchersModal.js
+ *
+ * Sets up the functionalities and behaviors of elements inside the modal for
+ * generating vouchers for every recipient.
+ *
+ */
+
 const setupGenVouchersModal = function (open) {
 
     "use strict";

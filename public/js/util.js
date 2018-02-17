@@ -1,3 +1,11 @@
+/**
+ * /public/js/util.js
+ *
+ * Provides functionalities used throughout the other JavaScripts on the project.
+ * This helps keeping the code DRY.
+ *
+ */
+
 const Util = function () {
 
     "use strict";

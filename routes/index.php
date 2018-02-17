@@ -1,11 +1,22 @@
 <?php
 
+/**
+ * /routes/index.php
+ *
+ * This file is called by Apache every time there is a request for an unknown
+ * path. The configuration for this behavior can be found at /.htaccess. It is
+ * responsible for routing every request by the application to the adequate
+ * controller method. As no framework is used in this project, all the routing
+ * has to be done manually.
+ *
+ */
+
 require_once __DIR__ . "/recipients.php";
 require_once __DIR__ . "/special_offers.php";
 require_once __DIR__ . "/vouchers.php";
 require_once __DIR__ . "/../helpers/clean_uri.php";
 
-// voucher_pool/recipients/new
+// eg: voucher_pool/recipients/new
 $uri = clean_uri();
 
 // GET, POST, PUT, PATCH or DELETE

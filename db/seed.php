@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * /db/seed.php
+ *
+ * Script for filling the database with random data for testing.
+ *
+ */
+
 require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/database.php";
 require_once __DIR__ . "/../models/recipient.php";

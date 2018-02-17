@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * /models/recipient.php
+ *
+ * This is the model for the recipients. It is responsible for every transaction
+ * with the database in which the main table and object of concern are
+ * recipients.
+ *
+ */
+
 declare(strict_types=1);
 
 require_once __DIR__ . "/../db/database.php";

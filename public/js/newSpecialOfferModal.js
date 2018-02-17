@@ -1,3 +1,11 @@
+/**
+ * /public/js/newSpecialOfferModal.js
+ *
+ * Sets up the functionalities and behaviors of elements inside the modal for
+ * creating a new special offer.
+ *
+ */
+
 const setupNewSpecialOfferModal = function (open) {
 
     "use strict";

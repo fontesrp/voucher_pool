@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * routes/vouchers.php
+ *
+ * Matches the request method with the corresponding controller method
+ *
+ */
+
 require_once __DIR__ . "/../controllers/vouchers.php";
 
 function call_voucher_method(string $name): void {

@@ -1,3 +1,12 @@
+<?php
+/**
+ * /views/vouchers/show
+ *
+ * This is the main page for the application
+ *
+ */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

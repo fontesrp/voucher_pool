@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * /helpers/voucher_gen.php
+ *
+ * Since the generation of vouchers involves working with the recipient and
+ * special_offer models, to avoid implicitly including them in the vouchers
+ * controller, this helper was created. This way the separation of concerns is
+ * kept.
+ *
+ */
+
 require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../db/database.php";
 require_once __DIR__ . "/../models/recipient.php";

@@ -1,3 +1,13 @@
+/**
+ * /public/js/genVouchersModal.js
+ *
+ * Sets up the functionalities and behaviors of elements in the main page of the
+ * application.
+ *
+ */
+
+// Since the DataTable API does not offer a way to access the table object after
+// initalization, it has to be stored in a global variable.
 let vouchersTable;
 
 const showVouchers = function (init) {

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * /view/vouchers/gen_modal.php
+ *
+ * Inserts the generate vouchers form in the modal frame
+ *
+ */
+
 $modal_props = [
     "id" => "gen-voucher",
     "title" => "Generate vouchers",

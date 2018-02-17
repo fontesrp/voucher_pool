@@ -1,3 +1,12 @@
+<?php
+/**
+ * /views/fractals/modal.php
+ *
+ * This is the frame for a Bootstrap modal
+ *
+ */
+?>
+
 <div class="modal fade" id="<?= $modal_props["id"] ?>-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

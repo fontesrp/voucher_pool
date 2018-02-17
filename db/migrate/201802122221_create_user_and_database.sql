@@ -1,3 +1,10 @@
+/**
+ * /db/migrate/201802122221_create_user_and_database.sql
+ *
+ * Setup database
+ *
+ */
+
 CREATE USER voucher_app
     IDENTIFIED BY '********';
 

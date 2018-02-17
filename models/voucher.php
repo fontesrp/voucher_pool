@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * /models/vouchers.php
+ *
+ * This is the model for the vouchers. It is responsible for every transaction
+ * with the database in which the main table and object of concern are
+ * vouchers. This is the main model in the application, being responsible for
+ * most of the available features. Since some of those features require that the
+ * data from the vouchers table be joined with that of the recipients and
+ * special_offers table, to avoid greatly increasing the code base, joins where
+ * made with those tables. Since in every query the main table and the main
+ * object of concer for the transaction are vouchers, this does not break, in any
+ * way, the separion of concerns for the models.
+ *
+ */
+
 declare(strict_types=1);
 
 require_once __DIR__ . "/../db/database.php";

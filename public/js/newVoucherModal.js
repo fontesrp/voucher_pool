@@ -1,3 +1,11 @@
+/**
+ * /public/js/newVouchersModal.js
+ *
+ * Sets up the functionalities and behaviors of elements inside the modal for
+ * creating a new voucher.
+ *
+ */
+
 const setupNewVoucherModal = function () {
 
     "use strict";

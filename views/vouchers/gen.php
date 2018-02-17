@@ -1,3 +1,14 @@
+<?php
+/**
+ * /views/vouchers/gen.php
+ *
+ * Form for generating a voucher for each recipient. Since it's used only inside
+ * a modal in the main application page, it doesn't need the standard HTML page
+ * tags.
+ *
+ */
+?>
+
 <form id="gen-voucher-form">
 
     <div class="form-row">

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * /models/special_offer.php
+ *
+ * This is the model for the special offers. It is responsible for every
+ * transaction with the database in which the main table and object of concern
+ * are special offers.
+ *
+ */
+
 declare(strict_types=1);
 
 require_once __DIR__ . "/../db/database.php";

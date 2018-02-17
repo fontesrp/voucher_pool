@@ -1,3 +1,13 @@
+<?php
+/**
+ * /views/vouchers/gen.php
+ *
+ * Form for creating a new voucher. Since it's used only inside a modal in the
+ * main application page, it doesn't need the standard HTML page tags.
+ *
+ */
+?>
+
 <form id="new-voucher-form">
 
     <div class="form-group ui-widget">

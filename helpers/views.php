@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * /helpers/views.php
+ *
+ * This functions are used by the views for generating URLs and to simplify the
+ * inclusion of libraries by requiring their components in blocks.
+ *
+ */
+
 function request_absolute(string $path): string {
     return "/voucher_pool/" . $path;
 }

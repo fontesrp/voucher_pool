@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * routes/special_offers.php
+ *
+ * Matches the request method with the corresponding controller method
+ *
+ */
+
 require_once __DIR__ . "/../controllers/special_offers.php";
 
 function call_special_offer_method(string $name): void {

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * /db/database.php
+ *
+ * This is a database abstraction layer. It provides useful functions to avoid
+ * working directly with the mysqli API. To instanciate the Database class, the
+ * global constants for the session must be set. Otherwise an exception will be
+ * thrown. This is a necessary protection step to allow the live demo of the
+ * application.
+ *
+ */
+
 declare(strict_types=1);
 
 class Database {
@@ -84,6 +95,9 @@ class Database {
         return $parse;
     }
 
+    /**
+     * @return mixed (either null or an array)
+     */
     function getRow() {
         return $this->response->fetch_assoc();
     }

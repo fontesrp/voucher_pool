@@ -1,3 +1,11 @@
+/**
+ * /public/js/newRecipientModal.js
+ *
+ * Sets up the functionalities and behaviors of elements inside the modal for
+ * creating a new recipient.
+ *
+ */
+
 const setupNewRecipientModal = function (open) {
 
     "use strict";

@@ -1,3 +1,13 @@
+<?php
+/**
+ * /views/vouchers/report.php
+ *
+ * This is the repot shown in the main page of the application. It displays the
+ * quantity of vouchers per status.
+ *
+ */
+?>
+
 <div class="jumbotron bg-white m-3">
 
     <h4>Vouchers status</h4>

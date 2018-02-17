@@ -1,3 +1,13 @@
+<?php
+/**
+ * /views/vouchers/update.php
+ *
+ * Form for updating a voucher. Since it's used only inside a modal in the
+ * main application page, it doesn't need the standard HTML page tags.
+ *
+ */
+?>
+
 <form id="upd-voucher-form">
 
     <input type="hidden" id="upd-voucher-ids" name="ids">

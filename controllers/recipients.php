@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * /controllers/recipients.php
+ *
+ * Controller responsible for handling requests for recipients. As there are no
+ * views currently associated with recipients, this file will deal only with the
+ * recipient model for handling HTTP requests.
+ *
+ */
+
 require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../db/database.php";
 require_once __DIR__ . "/../models/recipient.php";

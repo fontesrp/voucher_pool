@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * routes/recipients.php
+ *
+ * Matches the request method with the corresponding controller method
+ *
+ */
+
 require_once __DIR__ . "/../controllers/recipients.php";
 
 function call_recipient_method(string $name): void {
