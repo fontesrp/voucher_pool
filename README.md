@@ -19,7 +19,7 @@ To test the API features, please import the [Postman collection](tests/voucher_p
 
 For other tests and checking the results of experiments with the UI, I've included in the Postman collection a folder called `Routes` with requests and tests for all the Entities.
 
-The other subfolders in [tests](tests/) are for unity testing with PHPUnit. TO run them, go to the project folder and run these two commands:
+The other subfolders in [tests](tests/) are for unity testing with PHPUnit. To run them, go to the project folder and run these two commands:
 
 ```
 $ phpab -o autoload.php .
