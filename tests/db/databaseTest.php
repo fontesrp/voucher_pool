@@ -8,16 +8,7 @@ define("SESSION", __DIR__ . "/../../config/session.php");
 
 final class DatabaseTest extends TestCase {
 
-    public function testCannotBeCreatedWithoutSession() {
-
-        $this->expectException(Exception::class);
-
-        $db = new Database();
-    }
-
-    public function testCanBeCreatedWithSession() {
-
-        require_once SESSION;
+    public function testCanBeCreated() {
 
         $db = new Database();
 
