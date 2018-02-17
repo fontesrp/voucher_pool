@@ -9,7 +9,7 @@ It's hosted in an EC2 instance using a temporary DNS provided by AWS, so if the 
 ## Test script
 Most of the app's functionality can be tested via the browser. I suggest using Chrome v. 64 or newer (or any other browser with full ES6 support).
 
-To test the API features, please import the [Postman collection](tests/voucher_pool.postman_collection.json) included in the `/tests` folder and follow this steps:
+To test the API features, please import the [Postman collection](tests/voucher_pool.postman_collection.json) included in the [tests](tests/) folder and follow this steps:
 
 1. Send the `Seed database` request (`GET` request that will clear the database and repopulate it with random data)
 2. Send the `Generate vouchers` request (`POST` request to generate a voucher for each recipient)
@@ -19,7 +19,7 @@ To test the API features, please import the [Postman collection](tests/voucher_p
 
 For other tests and checking the results of experiments with the UI, I've included in the Postman collection a folder called `Routes` with requests and tests for all the Entities.
 
-The other subfolders in `tests` are for unity testing with PHPUnit. TO run them, go to the project folder and run these two commands:
+The other subfolders in [tests](tests/) are for unity testing with PHPUnit. TO run them, go to the project folder and run these two commands:
 
 ```
 $ phpab -o autoload.php .
