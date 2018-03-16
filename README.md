@@ -1,10 +1,7 @@
 # Voucher Pool
 A voucher pool micro-service based in PHP
 
-## Live Demo
-A live demo of the application can be found [here](http://ec2-18-217-163-134.us-east-2.compute.amazonaws.com/voucher_pool/vouchers/show).
-
-It's hosted in an EC2 instance using a temporary DNS provided by AWS, so if the server restarts, a new address is assigned. In that case, please contact me so I can update the address.
+[Live](http://rfapps.co/voucher_pool/vouchers/show)
 
 ## Test script
 Most of the app's functionality can be tested via the browser. I suggest using Chrome v. 64 or newer (or any other browser with full ES6 support).
